@@ -20,7 +20,7 @@ private:
 	
 
 public:
-	//Miner() {};
+	Miner() {};
 	double miningCD = 0.0;
 	Miner(int id, std::string name);
 	
