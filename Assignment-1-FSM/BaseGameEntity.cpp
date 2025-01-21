@@ -19,3 +19,13 @@ BaseGameEntity::BaseGameEntity(int id)
 {
 	setID(id);
 }
+
+void BaseGameEntity::setName(std::string name)
+{
+	this->name = name;
+}
+
+std::string BaseGameEntity::getName()
+{
+	return this->name;
+}

@@ -6,7 +6,7 @@
 
 void main()
 {
-	Miner bob(0);
+	Miner bob(0, std::string("Bob"));
 	while (true)
 	{
 		Timer::instance().update();

@@ -1,5 +1,6 @@
 #pragma once
 #include <chrono>
+#include <string>
 class Timer
 {
 	public:
@@ -9,11 +10,12 @@ class Timer
 		double getTime();
 		void stopDeltaTime();
 		double getDeltaTime();
+		std::string getTimeString();
 	private:
 		std::chrono::system_clock::time_point previousTime;// = std::chrono::system_clock::now();
 		std::chrono::system_clock::time_point currentTime;
 		double elapsedTime;
-		double time;
+		double time = 0;
 		int ticksPerSecond = 60;
 		Timer();
 };

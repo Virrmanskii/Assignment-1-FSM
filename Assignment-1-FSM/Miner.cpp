@@ -6,12 +6,13 @@
 //	this->NextValidID += 1;
 //}
 
-Miner::Miner(int id)
+Miner::Miner(int id, std::string name)
 {
 	if (id >= this->NextValidID)
 	{
 		this->id = id;
 		this->NextValidID = id + 1;
+		this->name = name;
 	}
 	else
 	{
