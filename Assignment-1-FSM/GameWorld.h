@@ -1,15 +1,16 @@
 #pragma once
 #include <iostream>
 #include "Time.h"
-#include "Miner.h"
+#include "Agent.h"
 class GameWorld
 {
 public:
 	static GameWorld& instance();
 	void process(double delta);
-	Miner bob;
+	//Miner bob;
 
 private:
-	GameWorld(); 
+	GameWorld();
+	static GameWorld* s_ref;
 };
 

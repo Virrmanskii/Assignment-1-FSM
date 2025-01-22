@@ -1,5 +1,7 @@
 #include "GameWorld.h"
 
+GameWorld* GameWorld::s_ref = nullptr;
+
 GameWorld& GameWorld::instance()
 {
 	static GameWorld gameWorld;
@@ -8,7 +10,9 @@ GameWorld& GameWorld::instance()
 
 GameWorld::GameWorld()
 {
-	bob = Miner(0, std::string("Bob")); 
+	std::cout << "world created";
+	s_ref = this;
+	//bob = Miner(0, std::string("Bob")); 
 }
 
 //Updates every frame
@@ -18,7 +22,7 @@ void GameWorld::process(double delta)
 	while (true)
 	{
 		Timer::instance().update(); 
-		bob.update();
+		//bob.update();
 		Timer::instance().stopDeltaTime(); 
 	} 
 }

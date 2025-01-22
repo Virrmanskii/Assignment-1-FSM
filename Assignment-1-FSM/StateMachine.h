@@ -1,107 +1,122 @@
 #pragma once
-#include "State.h"
+#include <map>
+//#include "State.h"
+#include "State2.0.h"
 
-template <class Entity_Type>
+template <typename Entity_Type, typename Entity_State>
 class StateMachine
 {
 public:
-	StateMachine(Entity_Type* owner);
+	std::map<Entity_State, State2<Entity_Type, Entity_State>*> states;
+
+	StateMachine(Entity_Type* _owner);
 	~StateMachine();
 
-	void setCurrentState(State<Entity_Type>* entity);
-	void setGlobalState(State<Entity_Type>* entity);
-	void setPreviousState(State<Entity_Type >* entity);
-	State<Entity_Type>* getCurrentState();
-	State<Entity_Type>* getGlobalState();
-	State<Entity_Type>* getPreviousState();
+	void setCurrentState(State2<Entity_Type, Entity_State>* entity);
+	void setGlobalState(State2<Entity_Type, Entity_State>* entity);
+	void setPreviousState(State2<Entity_Type, Entity_State>* entity);
+	State2<Entity_Type, Entity_State>* getCurrentState();
+	State2<Entity_Type, Entity_State>* getGlobalState();
+	State2<Entity_Type, Entity_State>* getPreviousState();
 	void update() const;
-	void changeState(State<Entity_Type>* newState);
+	void changeState(State2<Entity_Type, Entity_State>* newState);
 	void revertToPreviousState();
+	void setOwner(Entity_Type* owner);
 
+protected:
+	
+
+	virtual void setUp() = 0;
 
 private:
 	Entity_Type* owner;
-	State<Entity_Type>* currentState;
-	State<Entity_Type>* previousState;
-	State<Entity_Type>* globalState;
-
-
+	State2<Entity_Type, Entity_State>* currentState = nullptr;
+	State2<Entity_Type, Entity_State>* previousState = nullptr;
+	State2<Entity_Type, Entity_State>* globalState = nullptr;
+	
 };
-template <class Entity_Type>
-StateMachine<Entity_Type>::StateMachine(Entity_Type* owner)
+template <typename Entity_Type, typename Entity_State>
+StateMachine<Entity_Type, Entity_State>::StateMachine(Entity_Type* owner)
 {
+	this->owner = owner;
 	this->currentState = nullptr;
-	previousState = nullptr;
-	globalState = nullptr;
+	this->previousState = nullptr;
+	this->globalState = nullptr;
 }
 
-template <class Entity_Type>
-StateMachine<Entity_Type>::~StateMachine()
+template <typename Entity_Type, typename Entity_State>
+StateMachine<Entity_Type, Entity_State>::~StateMachine()
 {
 }
 
-template<class Entity_Type>
-inline void StateMachine<Entity_Type>::setCurrentState(State<Entity_Type>* entity)
+template<typename Entity_Type, typename Entity_State>
+inline void StateMachine<Entity_Type, Entity_State>::setCurrentState(State2<Entity_Type, Entity_State>* entity)
 {
-	this->currentState = entity
+	this->currentState = entity;
 }
 
-template<class Entity_Type>
-inline void StateMachine<Entity_Type>::setGlobalState(State<Entity_Type>* entity)
+template<typename Entity_Type, typename Entity_State>
+inline void StateMachine<Entity_Type, Entity_State>::setGlobalState(State2<Entity_Type, Entity_State>* entity)
 {
-	this->globalState = entity
+	this->globalState = entity;
 }
 
-template<class Entity_Type>
-inline void StateMachine<Entity_Type>::setPreviousState(State<Entity_Type>* entity)
+template<typename Entity_Type, typename Entity_State>
+inline void StateMachine<Entity_Type, Entity_State>::setPreviousState(State2<Entity_Type, Entity_State>* entity)
 {
-	this->previousState = entity
+	this->previousState = entity;
 }
 
-template<class Entity_Type>
-inline State<Entity_Type>* StateMachine<Entity_Type>::getCurrentState()
+template<typename Entity_Type, typename Entity_State>
+inline State2<Entity_Type, Entity_State>* StateMachine<Entity_Type, Entity_State>::getCurrentState()
 {
 	return this->currentState;
 }
 
-template<class Entity_Type>
-inline State<Entity_Type>* StateMachine<Entity_Type>::getGlobalState()
+template<typename Entity_Type, typename Entity_State>
+inline State2<Entity_Type, Entity_State>* StateMachine<Entity_Type, Entity_State>::getGlobalState()
 {
 	return this->globalState;
 }
 
-template<class Entity_Type>
-inline State<Entity_Type>* StateMachine<Entity_Type>::getPreviousState()
+template<typename Entity_Type, typename Entity_State>
+inline State2<Entity_Type, Entity_State>* StateMachine<Entity_Type, Entity_State>::getPreviousState()
 {
 	return this->previousState;
 }
 
-template<class Entity_Type>
-inline void StateMachine<Entity_Type>::update() const
+template<typename Entity_Type, typename Entity_State>
+inline void StateMachine<Entity_Type, Entity_State>::update() const
 {
-	if (this->globalState)
+	if (this->globalState != nullptr)
 	{
-		this->globalState->execute();
+		this->globalState->execute(this->owner);
 	}
 
-	if (this->currentState)
+	if (this->currentState != nullptr)
 	{
-		this->currentState->execute();
+		this->currentState->execute(this->owner);
 	}
 }
 
-template<class Entity_Type>
-inline void StateMachine<Entity_Type>::changeState(State<Entity_Type>* newState)
+template<typename Entity_Type, typename Entity_State>
+inline void StateMachine<Entity_Type, Entity_State>::changeState(State2<Entity_Type, Entity_State>* newState)
 {
 	//TODO: make check for state change to null
 	this->previousState = this->currentState;
-	this->currentState->exit();
+	this->currentState->exit(this->owner);
 	this->currentState = newState;
-	this->currentState->enter();
+	this->currentState->enter(this->owner);
 }
 
-template<class Entity_Type>
-inline void StateMachine<Entity_Type>::revertToPreviousState()
+template<typename Entity_Type, typename Entity_State>
+inline void StateMachine<Entity_Type, Entity_State>::revertToPreviousState()
 {
-	changeState(this->previousState)
+	changeState(this->previousState);
+}
+
+template<typename Entity_Type, typename Entity_State>
+inline void StateMachine<Entity_Type, Entity_State>::setOwner(Entity_Type* owner)
+{
+	this->owner = owner;
 }

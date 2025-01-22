@@ -6,3 +6,15 @@ enum LocationType
 	STORE,
 	BAR,
 };
+
+enum AgentState
+{
+	WORKING,
+	EATING,
+	DRINKING,
+	SLEEPING,
+	BUYING,
+	SELLING,
+	WALKING,
+	SOCIALIZE
+};

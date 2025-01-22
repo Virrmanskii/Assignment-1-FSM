@@ -33,10 +33,22 @@
     <ClCompile Include="BaseGameEntity.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Miner.cpp">
+    <ClCompile Include="Agent.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="EnterMineAndDigForGold.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Work.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="State2.0.h">
+      <Filter>Header Files</Filter>
+    </ClCompile>
+    <ClCompile Include="WorkState.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="AgentStateMachine.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -53,7 +65,7 @@
     <ClInclude Include="BaseGameEntity.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Miner.h">
+    <ClInclude Include="Agent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="resource.h">
@@ -67,6 +79,18 @@
     </ClInclude>
     <ClInclude Include="StateMachine.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Work.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="WorkState.h">
+      <Filter>Header Files\MinerStates</Filter>
+    </ClInclude>
+    <ClInclude Include="AgentStateMachine.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="WalkState.h">
+      <Filter>Header Files\MinerStates</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

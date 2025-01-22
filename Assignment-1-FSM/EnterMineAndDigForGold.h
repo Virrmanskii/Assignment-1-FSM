@@ -3,6 +3,7 @@
 //#include "Miner.h"
 #include "State.h"
 #include "Time.h"
+#include "Agent.h"
 //#include "BaseGameEntity.h"
 
 template <typename Entity>
@@ -10,9 +11,9 @@ class EnterMineAndDigForGold : public State<Entity>
 {
 public:
 	//static EnterMineAndDigForGold* instance();
-	void enter(Entity* e);
-	void execute(Entity* e); 
-	void exit(Entity* e); 
+	virtual void enter(Entity* e) override;
+	virtual void execute(Entity* e) override;
+	virtual void exit(Entity* e) override;
 }; 
 
 template <typename Entity>
@@ -24,10 +25,12 @@ template <typename Entity>
 void EnterMineAndDigForGold<Entity>::execute(Entity* e)
 {
 	double time = Timer::instance().getTime();
-	if (e->miningCD <= time)
+	if (e->getWorkTimer() <= time)
 	{
-		std::cout << Timer::instance().getTimeString() << e->getName() << ": " << "Digging" << std::endl;
-		e->miningCD = time + 5;
+		std::cout << Timer::instance().getTimeString() << e->getName() << ": " << e->getWork().getActiveJobExecuteLine() << std::endl;
+		e->setWorkTimer(time + e->getWorkCD());
+		e->increaseFatigue(e->getWork().getJobIntensity());
+		std::cout << e->getFatigue() << std::endl;
 	}
 
 	//std::cout << "Digging" << std::endl;

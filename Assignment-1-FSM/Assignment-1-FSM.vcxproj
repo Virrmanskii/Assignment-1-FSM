@@ -127,24 +127,32 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AgentStateMachine.cpp" />
     <ClCompile Include="BaseGameEntity.cpp" />
     <ClCompile Include="EnterMineAndDigForGold.cpp" />
     <ClCompile Include="GameWorld.cpp" />
     <ClCompile Include="Main.cpp" />
-    <ClCompile Include="Miner.cpp" />
+    <ClCompile Include="Agent.cpp" />
     <ClCompile Include="State.cpp" />
+    <ClCompile Include="State2.0.h" />
     <ClCompile Include="Time.cpp" />
+    <ClCompile Include="Work.cpp" />
+    <ClCompile Include="WorkState.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AgentStateMachine.h" />
     <ClInclude Include="BaseGameEntity.h" />
     <ClInclude Include="Constants.h" />
     <ClInclude Include="EnterMineAndDigForGold.h" />
     <ClInclude Include="GameWorld.h" />
-    <ClInclude Include="Miner.h" />
+    <ClInclude Include="Agent.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="State.h" />
     <ClInclude Include="StateMachine.h" />
     <ClInclude Include="Time.h" />
+    <ClInclude Include="WalkState.h" />
+    <ClInclude Include="Work.h" />
+    <ClInclude Include="WorkState.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Assignment-1-FSM.rc" />
