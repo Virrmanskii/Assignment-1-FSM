@@ -83,6 +83,26 @@ double Agent::getWorkTimer()
 	return this->workTimer;
 }
 
+void Agent::setWalkCD(int CD)
+{
+	this->walkCD = CD;
+}
+
+int Agent::getWalkCD()
+{
+	return this->walkCD;
+}
+
+void Agent::setWalkTimer(double newTimer)
+{
+	this->walkTimer = newTimer;
+}
+
+double Agent::getWalkTimer()
+{
+	return this->walkTimer;
+}
+
 int Agent::getJobResource()
 {
 	return this->jobResource;

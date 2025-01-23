@@ -1,4 +1,4 @@
-#include "WorkState.h"
+//#include "WorkState.h"
 
 //WorkState::WorkState(AgentState state) : State2(){}
 //{

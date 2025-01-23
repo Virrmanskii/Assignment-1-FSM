@@ -23,6 +23,7 @@ class WorkState : public State2<EntityType, StateType>
 {
 public:
 	//WorkState(AgentState state) : State2(state) {}
+	//AgentState stateChangeReason;
 	WorkState();
 
 	void enter(EntityType* e) override;
@@ -68,8 +69,8 @@ inline void WorkState<EntityType, StateType>::execute(EntityType* e)
 
 	if (e->getFatigue() >= 50)
 	{
-		e->changeState(e->getAgentStateMachine()->states.at(WALKING));
 		this->stateChangeReason = SLEEPING;
+		e->changeState(e->getAgentStateMachine()->states.at(WALKING));
 	}
 
 	if (e->getWorkTimer() <= time)
@@ -77,7 +78,6 @@ inline void WorkState<EntityType, StateType>::execute(EntityType* e)
 		std::cout << Timer::instance().getTimeString() << e->getName() << ": " << e->getWork().getActiveJobExecuteLine() << std::endl;
 		e->setWorkTimer(time + e->getWorkCD());
 		e->increaseFatigue(e->getWork().getJobIntensity());
-		std::cout << e->getFatigue() << std::endl;
 	}
 }
 
@@ -85,7 +85,7 @@ template<typename EntityType, typename StateType>
 inline void WorkState<EntityType, StateType>::exit(EntityType* e)
 {
 	const char* reasonLine = "";
-
+	
 	switch (this->stateChangeReason)
 	{
 	case WORKING:
@@ -109,5 +109,5 @@ inline void WorkState<EntityType, StateType>::exit(EntityType* e)
 		break;
 	}
 
-	std::cout << Timer::instance().getTimeString() << e->getName() << ": " << e->getWork().getActiveJobExitLine() << reasonLine <<std::endl;
+	std::cout << Timer::instance().getTimeString() << e->getName() << ": " << e->getWork().getActiveJobExitLine() << reasonLine << std::endl;
 }

@@ -32,6 +32,8 @@ private:
 	bool workEquipment;
 	double workTimer = 0;
 	int workCD = 5;
+	double walkTimer = 0;
+	int walkCD = 3;
 	double cycleTimer = 0;
 	double cycleCD = 1;
 
@@ -54,6 +56,12 @@ public:
 
 	void setWorkTimer(double newTimer);
 	double getWorkTimer();
+
+	void setWalkCD(int CD);
+	int getWalkCD();
+
+	void setWalkTimer(double newTimer);
+	double getWalkTimer();
 
 	int getJobResource();
 	int getMoney();

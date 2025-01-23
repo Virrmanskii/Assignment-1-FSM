@@ -22,17 +22,72 @@ inline WalkState<EntityType, StateType>::WalkState()
 template<typename EntityType, typename StateType>
 inline void WalkState<EntityType, StateType>::enter(EntityType* e)
 {
+	switch (AgentState)
+	{
+	case WORKING:
+		break;
+	case EATING:
+		break;
+	case DRINKING:
+		break;
+	case SLEEPING:
+		break;
+	case BUYING:
+		break;
+	case SELLING:
+		break;
+	case WALKING:
+		break;
+	case SOCIALIZE:
+		break;
+	default:
+		break;
+	}
+
 	std::cout << Timer::instance().getTimeString() << e->getName() << ": Starts walking" << std::endl;
 }
 
 template<typename EntityType, typename StateType>
 inline void WalkState<EntityType, StateType>::execute(EntityType* e)
 {
-	std::cout << Timer::instance().getTimeString() << e->getName() << ": Walking" << std::endl;
+	double time = Timer::instance().getTime();
+
+	//if (e->getFatigue() >= 50)
+	//{
+	//	this->stateChangeReason = SLEEPING;
+	//	e->changeState(e->getAgentStateMachine()->states.at(WALKING));
+	//}
+
+	if (e->getWalkTimer() <= time)
+	{
+		std::cout << Timer::instance().getTimeString() << e->getName() << ": Walking" << std::endl;
+		e->setWalkTimer(time + e->getWalkCD());
+	}
 }
 
 template<typename EntityType, typename StateType>
 inline void WalkState<EntityType, StateType>::exit(EntityType* e)
 {
+	switch (AgentState)
+	{
+	case WORKING:
+		break;
+	case EATING:
+		break;
+	case DRINKING:
+		break;
+	case SLEEPING:
+		break;
+	case BUYING:
+		break;
+	case SELLING:
+		break;
+	case WALKING:
+		break;
+	case SOCIALIZE:
+		break;
+	default:
+		break;
+	}
 	std::cout << Timer::instance().getTimeString() << e->getName() << ": Stops walking" << std::endl;
 }
