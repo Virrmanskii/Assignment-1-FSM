@@ -24,38 +24,13 @@ inline BuyState<EntityType, StateType>::BuyState()
 template<typename EntityType, typename StateType>
 inline void BuyState<EntityType, StateType>::enter(EntityType* e)
 {
-	const char* reasonLine = "";
-
-	switch (e->getAgentStateMachine()->getPreviousState()->stateChangeReason)
-	{
-	case WORKING:
-
-		break;
-	case EATING:
-		break;
-	case DRINKING:
-		break;
-	case SLEEPING:
-		reasonLine = "Enters the home to sleep";
-		break;
-	case BUYING:
-		break;
-	case SELLING:
-		break;
-	case WALKING:
-		break;
-	case SOCIALIZE:
-		break;
-	default:
-		break;
-	}
-
-	std::cout << Timer::instance().getTimeString() << e->getName() << ": " << reasonLine << std::endl;
+	std::cout << Timer::instance().getTimeString() << e->getName() << ": Enters the store" << std::endl;
 }
 
 template<typename EntityType, typename StateType>
 inline void BuyState<EntityType, StateType>::execute(EntityType* e)
 {
+
 }
 
 template<typename EntityType, typename StateType>
