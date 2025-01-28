@@ -7,6 +7,8 @@ template <typename EntityType, typename StateType>
 class WalkState : public State2<EntityType, StateType>
 {
 public:
+	int walktick = 0;
+
 	WalkState();
 
 	void enter(EntityType* e) override;
@@ -22,7 +24,7 @@ inline WalkState<EntityType, StateType>::WalkState()
 template<typename EntityType, typename StateType>
 inline void WalkState<EntityType, StateType>::enter(EntityType* e)
 {
-	switch (AgentState)
+	switch (this->stateChangeReason)
 	{
 	case WORKING:
 		break;
@@ -62,13 +64,20 @@ inline void WalkState<EntityType, StateType>::execute(EntityType* e)
 	{
 		std::cout << Timer::instance().getTimeString() << e->getName() << ": Walking" << std::endl;
 		e->setWalkTimer(time + e->getWalkCD());
+		this->walktick += 1;
+	}
+
+	if (this->walktick == 3)
+	{
+		this->stateChangeReason = e->getAgentStateMachine()->getPreviousState()->stateChangeReason;
+		e->changeState(e->getAgentStateMachine()->states.at(e->getAgentStateMachine()->getPreviousState()->stateChangeReason));
 	}
 }
 
 template<typename EntityType, typename StateType>
 inline void WalkState<EntityType, StateType>::exit(EntityType* e)
 {
-	switch (AgentState)
+	switch (this->stateChangeReason)
 	{
 	case WORKING:
 		break;
@@ -89,5 +98,7 @@ inline void WalkState<EntityType, StateType>::exit(EntityType* e)
 	default:
 		break;
 	}
+
 	std::cout << Timer::instance().getTimeString() << e->getName() << ": Stops walking" << std::endl;
+	this->walktick = 0;
 }

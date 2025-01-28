@@ -92,6 +92,15 @@
     <ClInclude Include="WalkState.h">
       <Filter>Header Files\MinerStates</Filter>
     </ClInclude>
+    <ClInclude Include="SleepingState.h">
+      <Filter>Header Files\MinerStates</Filter>
+    </ClInclude>
+    <ClInclude Include="EatState.h">
+      <Filter>Header Files\MinerStates</Filter>
+    </ClInclude>
+    <ClInclude Include="DrinkState.h">
+      <Filter>Header Files\MinerStates</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Assignment-1-FSM.rc">

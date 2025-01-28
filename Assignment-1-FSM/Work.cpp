@@ -77,6 +77,25 @@ const char* Work::getActiveJobExitLine()
 	return vLine;
 }
 
+int Work::getActiveJobResourceAmount()
+{
+	int amount;
+	switch (this->activeJob)
+	{
+	case WorkType::Miner:
+		amount = 1;
+		break;
+
+	case WorkType::Fisher:
+		amount = 3;
+		break;
+	default:
+		amount = 0;;
+		break;
+	}
+	return amount;
+}
+
 int Work::getJobIntensity()
 {
 	return this->jobIntensity;

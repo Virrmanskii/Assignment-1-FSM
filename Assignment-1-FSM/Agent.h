@@ -6,6 +6,10 @@
 //#include "AgentStateMachine.h"
 #include "Workstate.h"
 #include "WalkState.h"
+#include "SleepingState.h"
+#include "EatState.h"
+#include "DrinkState.h"
+
 #include "Work.h"
 #include "EnterMineAndDigForGold.h"
 
@@ -27,13 +31,21 @@ private:
 	int jobResource;
 	int money;
 	int thirst;
+	int water = 2;
 	int hunger;
+	int food = 3;
 	int fatigue;
 	bool workEquipment;
 	double workTimer = 0;
 	int workCD = 5;
 	double walkTimer = 0;
 	int walkCD = 3;
+	double sleepTimer = 0;
+	int sleepCD = 5;
+	double eatTimer = 0;
+	int eatCD = 2;
+	double drinkTimer = 0;
+	int drinkCD = 1;
 	double cycleTimer = 0;
 	double cycleCD = 1;
 
@@ -53,20 +65,37 @@ public:
 
 	void setWorkCD(int CD);
 	int getWorkCD();
-
 	void setWorkTimer(double newTimer);
 	double getWorkTimer();
 
 	void setWalkCD(int CD);
 	int getWalkCD();
-
 	void setWalkTimer(double newTimer);
 	double getWalkTimer();
+
+	void setSleepCD(int CD);
+	int getSleepCD();
+	void setSleepTimer(double newTimer);
+	double getSleepTimer();
+
+	void setEatCD(int CD);
+	int getEatCD();
+	void setEatTimer(double newTimer);
+	double getEatTimer();
+
+	void setDrinkCD(int CD);
+	int getDrinkCD();
+	void setDrinkTimer(double newTimer);
+	double getDrinkTimer();
 
 	int getJobResource();
 	int getMoney();
 	int getThirst();
+	int getWater();
+	void setWater(int newAmount);
 	int getHunger();
+	int getFood();
+	void setFood(int newAmount);
 	int getFatigue();
 	AgentStateMachine* getAgentStateMachine();
 
@@ -77,6 +106,8 @@ public:
 	void decreaseHunger(int decrease);
 	void increaseFatigue(int increase);
 	void decreaseFatigue(int decrease);
+	void increaseJobResource(int increase);
+	void decreaseJobResource(int decrease);
 
 	//void changeState(State* newState);
 };

@@ -73,11 +73,17 @@ inline void WorkState<EntityType, StateType>::execute(EntityType* e)
 		e->changeState(e->getAgentStateMachine()->states.at(WALKING));
 	}
 
+	if (e->getJobResource() >= 10)
+	{
+		//TODO Go buy shit for your money biaaaaaatch
+	}
+
 	if (e->getWorkTimer() <= time)
 	{
 		std::cout << Timer::instance().getTimeString() << e->getName() << ": " << e->getWork().getActiveJobExecuteLine() << std::endl;
 		e->setWorkTimer(time + e->getWorkCD());
 		e->increaseFatigue(e->getWork().getJobIntensity());
+		e->increaseJobResource(e->getWork().getActiveJobResourceAmount());
 	}
 }
 
@@ -95,7 +101,7 @@ inline void WorkState<EntityType, StateType>::exit(EntityType* e)
 	case DRINKING:
 		break;
 	case SLEEPING:
-		reasonLine = " because I'm tired.";
+		reasonLine = " because he's tired.";
 		break;
 	case BUYING:
 		break;

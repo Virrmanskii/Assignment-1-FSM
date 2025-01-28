@@ -146,10 +146,13 @@
     <ClInclude Include="AgentStateMachine.h" />
     <ClInclude Include="BaseGameEntity.h" />
     <ClInclude Include="Constants.h" />
+    <ClInclude Include="DrinkState.h" />
+    <ClInclude Include="EatState.h" />
     <ClInclude Include="EnterMineAndDigForGold.h" />
     <ClInclude Include="GameWorld.h" />
     <ClInclude Include="Agent.h" />
     <ClInclude Include="resource.h" />
+    <ClInclude Include="SleepingState.h" />
     <ClInclude Include="State.h" />
     <ClInclude Include="StateMachine.h" />
     <ClInclude Include="Time.h" />

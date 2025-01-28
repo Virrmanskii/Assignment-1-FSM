@@ -103,6 +103,66 @@ double Agent::getWalkTimer()
 	return this->walkTimer;
 }
 
+void Agent::setSleepCD(int CD)
+{
+	this->sleepCD = CD;
+}
+
+int Agent::getSleepCD()
+{
+	return this->sleepCD;
+}
+
+void Agent::setSleepTimer(double newTimer)
+{
+	this->sleepTimer = newTimer;
+}
+
+double Agent::getSleepTimer()
+{
+	return this->sleepTimer;
+}
+
+void Agent::setEatCD(int CD)
+{
+	this->eatCD = CD;
+}
+
+int Agent::getEatCD()
+{
+	return this->eatCD;
+}
+
+void Agent::setEatTimer(double newTimer)
+{
+	this->eatTimer = newTimer;
+}
+
+double Agent::getEatTimer()
+{
+	return this->eatTimer;
+}
+
+void Agent::setDrinkCD(int CD)
+{
+	this->drinkCD = CD;
+}
+
+int Agent::getDrinkCD()
+{
+	return this->drinkCD;
+}
+
+void Agent::setDrinkTimer(double newTimer)
+{
+	this->drinkTimer = newTimer;
+}
+
+double Agent::getDrinkTimer()
+{
+	return this->drinkTimer;
+}
+
 int Agent::getJobResource()
 {
 	return this->jobResource;
@@ -118,9 +178,29 @@ int Agent::getThirst()
 	return this->thirst;
 }
 
+int Agent::getWater()
+{
+	return this->water;
+}
+
+void Agent::setWater(int newAmount)
+{
+	this->water += newAmount;
+}
+
 int Agent::getHunger()
 {
 	return this->hunger;
+}
+
+int Agent::getFood()
+{
+	return this->food;
+}
+
+void Agent::setFood(int newAmount)
+{
+	this->food += newAmount;
 }
 
 int Agent::getFatigue()
@@ -182,6 +262,20 @@ void Agent::decreaseFatigue(int decrease)
 	}
 }
 
+void Agent::increaseJobResource(int increase)
+{
+	this->jobResource += increase;
+}
+
+void Agent::decreaseJobResource(int decrease)
+{
+	this->jobResource -= decrease;
+	if (this->jobResource < 0)
+	{
+		this->jobResource = 0;
+	}
+}
+
 
 //AgentStateMachine class defenitions
 //-------------------------------------------------------------------------------------------------------------------
@@ -196,6 +290,9 @@ void AgentStateMachine::setUp()
 {
 	this->states[AgentState::WORKING] = new WorkState<Agent, AgentState>();
 	this->states[AgentState::WALKING] = new WalkState<Agent, AgentState>();
+	this->states[AgentState::SLEEPING] = new SleepingState<Agent, AgentState>();
+	this->states[AgentState::EATING] = new EatState<Agent, AgentState>(); 
+	this->states[AgentState::DRINKING] = new DrinkState<Agent, AgentState>(); 
 
 	this->setCurrentState(this->states.at(AgentState::WORKING));
 }

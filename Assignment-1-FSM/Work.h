@@ -18,6 +18,7 @@ public:
 	const char* getActiveJobEnterLine();
 	const char* getActiveJobExecuteLine();
 	const char* getActiveJobExitLine();
+	int getActiveJobResourceAmount();
 	int getJobIntensity();
 
 private:

@@ -21,7 +21,7 @@ void Timer::update()
 {
     this->currentTime = std::chrono::system_clock::now();
     this->elapsedTime = std::chrono::duration_cast<std::chrono::nanoseconds>(this->currentTime - this->previousTime).count() / (1000000000.0); 
-    this->time += this->elapsedTime;
+    this->time += 20*this->elapsedTime;
 }
 
 double Timer::getTime()
