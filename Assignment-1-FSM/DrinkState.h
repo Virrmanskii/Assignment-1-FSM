@@ -46,6 +46,32 @@ inline void DrinkState<EntityType, StateType>::execute(EntityType* e)
 		e->decreaseThirst(40);
 		std::cout << Timer::instance().getTimeString() << e->getName() << ": Drinking" << std::endl;
 	}
+
+	if (e->getThirst() < 10)
+	{
+		if (e->getHunger() > 30) 
+		{
+			//TODO change to eating statethis->stateChangeReason = BUYING; 
+			this->stateChangeReason = EATING;
+			e->changeState(e->getAgentStateMachine()->states.at(EATING));
+			return;
+		}
+		if (e->getFatigue() > 70)
+		{
+			//TODO change to sleep state
+			this->stateChangeReason = SLEEPING
+			e->changeState(e->getAgentStateMachine()->states.at(SLEEPING));
+			return;
+		}
+		if (e->getWater() <= 2)
+		{
+			this->stateChangeReason = BUYING
+			e->changeState(e->getAgentStateMachine()->states.at(WALKING));
+			return;
+		}
+		this->stateChangeReason = WORKING
+		e->changeState(e->getAgentStateMachine()->states.at(WORKING));
+	}
 }     
 
 template<typename EntityType, typename StateType>

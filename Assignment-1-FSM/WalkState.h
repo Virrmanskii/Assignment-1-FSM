@@ -24,9 +24,12 @@ inline WalkState<EntityType, StateType>::WalkState()
 template<typename EntityType, typename StateType>
 inline void WalkState<EntityType, StateType>::enter(EntityType* e)
 {
+	const char* reasonLine = "";
+
 	switch (this->stateChangeReason)
 	{
 	case WORKING:
+		reasonLine = "to work ";
 		break;
 	case EATING:
 		break;
@@ -46,7 +49,7 @@ inline void WalkState<EntityType, StateType>::enter(EntityType* e)
 		break;
 	}
 
-	std::cout << Timer::instance().getTimeString() << e->getName() << ": Starts walking" << std::endl;
+	std::cout << Timer::instance().getTimeString() << e->getName() << ": Starts walking " << reasonLine << std::endl;
 }
 
 template<typename EntityType, typename StateType>

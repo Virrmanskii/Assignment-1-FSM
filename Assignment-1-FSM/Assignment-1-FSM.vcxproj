@@ -145,6 +145,7 @@
   <ItemGroup>
     <ClInclude Include="AgentStateMachine.h" />
     <ClInclude Include="BaseGameEntity.h" />
+    <ClInclude Include="BuyState.h" />
     <ClInclude Include="Constants.h" />
     <ClInclude Include="DrinkState.h" />
     <ClInclude Include="EatState.h" />

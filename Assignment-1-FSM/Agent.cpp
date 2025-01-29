@@ -276,6 +276,20 @@ void Agent::decreaseJobResource(int decrease)
 	}
 }
 
+void Agent::increaseMoney(int increase)
+{
+	this->money += increase;
+}
+
+void Agent::decreaseMoney(int decrease)
+{
+	this->money -= decrease;
+	if (this->money < 0)
+	{
+		this->money = 0;
+	}
+}
+
 
 //AgentStateMachine class defenitions
 //-------------------------------------------------------------------------------------------------------------------
@@ -292,7 +306,8 @@ void AgentStateMachine::setUp()
 	this->states[AgentState::WALKING] = new WalkState<Agent, AgentState>();
 	this->states[AgentState::SLEEPING] = new SleepingState<Agent, AgentState>();
 	this->states[AgentState::EATING] = new EatState<Agent, AgentState>(); 
-	this->states[AgentState::DRINKING] = new DrinkState<Agent, AgentState>(); 
+	this->states[AgentState::DRINKING] = new DrinkState<Agent, AgentState>();
+	this->states[AgentState::BUYING] = new BuyState<Agent, AgentState>();
 
 	this->setCurrentState(this->states.at(AgentState::WORKING));
 }

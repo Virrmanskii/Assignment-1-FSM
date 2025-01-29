@@ -101,6 +101,9 @@
     <ClInclude Include="DrinkState.h">
       <Filter>Header Files\MinerStates</Filter>
     </ClInclude>
+    <ClInclude Include="BuyState.h">
+      <Filter>Header Files\MinerStates</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Assignment-1-FSM.rc">

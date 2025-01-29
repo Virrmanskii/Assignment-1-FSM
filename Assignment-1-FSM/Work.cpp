@@ -77,6 +77,26 @@ const char* Work::getActiveJobExitLine()
 	return vLine;
 }
 
+const char* Work::getResourceString()
+{
+	const char* vLine = "";
+
+	switch (this->activeJob)
+	{
+	case WorkType::Miner:
+		vLine = "gold ";
+		break;
+
+	case WorkType::Fisher:
+		vLine = "fish ";
+		break;
+	default:
+		vLine = "";
+		break;
+	}
+	return vLine;
+}
+
 int Work::getActiveJobResourceAmount()
 {
 	int amount;
@@ -94,6 +114,25 @@ int Work::getActiveJobResourceAmount()
 		break;
 	}
 	return amount;
+}
+
+int Work::getResourceValue()
+{
+	int value;
+	switch (this->activeJob)
+	{
+	case WorkType::Miner:
+		value = 40;
+		break;
+
+	case WorkType::Fisher:
+		value = 10;
+		break;
+	default:
+		value = 0;;
+		break;
+	}
+	return value;
 }
 
 int Work::getJobIntensity()

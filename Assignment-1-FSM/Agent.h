@@ -9,6 +9,7 @@
 #include "SleepingState.h"
 #include "EatState.h"
 #include "DrinkState.h"
+#include "BuyState.h"
 
 #include "Work.h"
 #include "EnterMineAndDigForGold.h"
@@ -108,6 +109,8 @@ public:
 	void decreaseFatigue(int decrease);
 	void increaseJobResource(int increase);
 	void decreaseJobResource(int decrease);
+	void increaseMoney(int increase);
+	void decreaseMoney(int decrease);
 
 	//void changeState(State* newState);
 };
