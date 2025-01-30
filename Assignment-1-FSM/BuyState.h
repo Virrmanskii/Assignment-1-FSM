@@ -30,6 +30,34 @@ inline void BuyState<EntityType, StateType>::enter(EntityType* e)
 template<typename EntityType, typename StateType>
 inline void BuyState<EntityType, StateType>::execute(EntityType* e)
 {
+	if (e->isDead())
+	{
+		this->stateChangeReason = DEAD;
+		e->changeState(e->getAgentStateMachine()->states.at(DEAD));
+		return;
+	}
+
+	if (e->isFatigued())
+	{
+		this->stateChangeReason = SLEEPING;
+		e->changeState(e->getAgentStateMachine()->states.at(WALKING));
+		return;
+	}
+
+	if (e->isThirsty())
+	{
+		this->stateChangeReason = DRINKING;
+		e->changeState(e->getAgentStateMachine()->states.at(WALKING));
+		return;
+	}
+
+	if (e->isHungry())
+	{
+		this->stateChangeReason = EATING;
+		e->changeState(e->getAgentStateMachine()->states.at(WALKING));
+		return;
+	}
+
 	if (e->getJobResource() > 0)	//Sälj om det finns resurser att sälja
 	{
 		int nr = 0;
@@ -43,34 +71,66 @@ inline void BuyState<EntityType, StateType>::execute(EntityType* e)
 		std::cout << Timer::instance().getTimeString() << e->getName() << ": Sells " << nr << " " << e->getWork().getResourceString() << "and recieves "<< nr * (e->getWork().getResourceValue()) << "kr" << std::endl;
 	}
 
-	if (e->getMoney() > 10)
+	if (e->hasMoney())
 	{
-		if (e->getFood() <= 40 && e->getMoney() > 30)
+		if (e->getFood() + 1 > e->getWater())
+		{
+			if (e->getMoney() >= 10)
+			{
+				e->setWater(1);
+				e->decreaseMoney(10);
+				std::cout << Timer::instance().getTimeString() << e->getName() << ": Buys water" << std::endl;
+				return;
+			}
+		}
+		if (e->getMoney() >= 30)
 		{
 			e->setFood(1);
 			e->decreaseMoney(30);
 			std::cout << Timer::instance().getTimeString() << e->getName() << ": Buys food" << std::endl;
+			return;
 		}
-		if (e->getFood() <= 40 && e->getMoney() > 10)
-		{
-			e->setWater(1);
-			e->decreaseMoney(10);
-			std::cout << Timer::instance().getTimeString() << e->getName() << ": Buys water" << std::endl;
-		}
+		
 	}
+	else
+	{
+		this->stateChangeReason = WORKING;
+		e->changeState(e->getAgentStateMachine()->states.at(WALKING));
+	}
+
+
+
+
 	
-	if ((e->getHunger() < 70 || e->getThirst() < 60 || e->getFatigue() < 20) && e->getMoney() <= 10)
-	{
-		this->stateChangeReason = WORKING;
-		e->changeState(e->getAgentStateMachine()->states.at(WALKING));
-		std::cout << Timer::instance().getTimeString() << e->getName() << ": Is feeling great and is ready for work" << std::endl;
-	}
-	if ((e->getHunger() < 70 || e->getThirst() < 60 || e->getFatigue() < 20) && e->getMoney() <= 10)
-	{
-		this->stateChangeReason = WORKING;
-		e->changeState(e->getAgentStateMachine()->states.at(WALKING));
-		std::cout << Timer::instance().getTimeString() << e->getName() << ": Is feeling great and is ready for work" << std::endl;
-	}
+	//if (e->getMoney() > 10)
+	//{
+	//	if (e->getFood() <= 40 && e->getMoney() > 30)
+	//	{
+	//		e->setFood(1);
+	//		e->decreaseMoney(30);
+	//		std::cout << Timer::instance().getTimeString() << e->getName() << ": Buys food" << std::endl;
+	//	}
+	//	if (e->getFood() <= 40 && e->getMoney() > 10)
+	//	{
+	//		e->setWater(1);
+	//		e->decreaseMoney(10);
+	//		std::cout << Timer::instance().getTimeString() << e->getName() << ": Buys water" << std::endl;
+	//	}
+	//}
+	//
+	//if ((e->getHunger() < 70 || e->getThirst() < 60 || e->getFatigue() < 20) && e->getMoney() <= 10)
+	//{
+	//	std::cout << Timer::instance().getTimeString() << e->getName() << ": Is feeling great and is ready for work" << std::endl;
+	//	this->stateChangeReason = WORKING;
+	//	e->changeState(e->getAgentStateMachine()->states.at(WALKING));
+	//	return;
+	//}
+	//if ((e->getHunger() < 70 || e->getThirst() < 60 || e->getFatigue() < 20) && e->getMoney() <= 10)
+	//{
+	//	this->stateChangeReason = WORKING;
+	//	e->changeState(e->getAgentStateMachine()->states.at(WALKING));
+	//	std::cout << Timer::instance().getTimeString() << e->getName() << ": Is feeling great and is ready for work" << std::endl;
+	//}
 }
 
 template<typename EntityType, typename StateType>

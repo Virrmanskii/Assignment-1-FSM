@@ -10,6 +10,7 @@
 #include "EatState.h"
 #include "DrinkState.h"
 #include "BuyState.h"
+#include "DeadState.h"
 
 #include "Work.h"
 #include "EnterMineAndDigForGold.h"
@@ -113,6 +114,11 @@ public:
 	void decreaseMoney(int decrease);
 
 	//void changeState(State* newState);
+	bool isHungry();
+	bool isThirsty();
+	bool isFatigued();
+	bool hasMoney();
+	bool isDead();
 };
 
 

@@ -39,12 +39,12 @@ inline void EatState<EntityType, StateType>::execute(EntityType* e)
 {
 	double time = Timer::instance().getTime();
 
-	if (e->getFood() == 0 && e->getJobResource() > 3) 
-	{
-		std::cout << Timer::instance().getTimeString() << e->getName() << ": Can't find any food " << std::endl;
-		this->stateChangeReason = BUYING; 
-		e->changeState(e->getAgentStateMachine()->states.at(WALKING));
-	}
+	//if (e->getFood() == 0 && e->getJobResource() > 3) 
+	//{
+	//	std::cout << Timer::instance().getTimeString() << e->getName() << ": Can't find any food " << std::endl;
+	//	this->stateChangeReason = BUYING; 
+	//	e->changeState(e->getAgentStateMachine()->states.at(WALKING));
+	//}
 
 	if (e->getEatTimer() <= time && e->getFood() > 0 && e->getHunger() > 20)
 	{
@@ -55,6 +55,31 @@ inline void EatState<EntityType, StateType>::execute(EntityType* e)
 		std::cout << Timer::instance().getTimeString() << e->getName() << ": Eating" << std::endl;
 	}
 
+	//if (e->getHunger() < 10)
+	
+	if (e->getThirst() > 30)
+	{
+		//TODO change to eating statethis->stateChangeReason = BUYING; 
+		this->stateChangeReason = DRINKING;
+		e->changeState(e->getAgentStateMachine()->states.at(DRINKING));
+		return;
+	}
+	if (e->getFatigue() >= 100)
+	{
+		//TODO change to sleep state
+		this->stateChangeReason = SLEEPING;
+		e->changeState(e->getAgentStateMachine()->states.at(SLEEPING));
+		return;
+	}
+	if (e->getFood() <= 2)
+	{
+		this->stateChangeReason = BUYING;
+		e->changeState(e->getAgentStateMachine()->states.at(WALKING));
+		return;
+	}
+	//this->stateChangeReason = WORKING;
+	//e->changeState(e->getAgentStateMachine()->states.at(WORKING));
+	
 }
 
 template<typename EntityType, typename StateType>
@@ -89,5 +114,5 @@ inline void EatState<EntityType, StateType>::exit(EntityType* e)
 		break;
 	}
 
-	std::cout << Timer::instance().getTimeString() << e->getName() << ": Leaves home to " << reasonLine << std::endl;
+	//std::cout << Timer::instance().getTimeString() << e->getName() << ": Leaves home to " << reasonLine << std::endl;
 }

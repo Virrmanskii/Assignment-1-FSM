@@ -67,24 +67,47 @@ inline void WorkState<EntityType, StateType>::execute(EntityType* e)
 {
 	double time = Timer::instance().getTime();
 
-	if (e->getFatigue() >= 50)
+
+	std::cout << Timer::instance().getTimeString() << e->getName() << ": " << e->getWork().getActiveJobExecuteLine() << std::endl;
+	e->increaseFatigue(e->getWork().getJobIntensity());
+	e->increaseJobResource(e->getWork().getActiveJobResourceAmount());
+
+	if (e->isDead())
+	{
+		this->stateChangeReason = DEAD;
+		e->changeState(e->getAgentStateMachine()->states.at(DEAD));
+		return;
+	}
+	
+
+	if (e->isFatigued())
 	{
 		this->stateChangeReason = SLEEPING;
 		e->changeState(e->getAgentStateMachine()->states.at(WALKING));
+		return;
 	}
 
-	if (e->getJobResource() >= 10)
+	if (e->isThirsty())
 	{
-		//TODO Go buy shit for your money biaaaaaatch
+		this->stateChangeReason = DRINKING;
+		e->changeState(e->getAgentStateMachine()->states.at(WALKING));
+		return;
 	}
 
-	if (e->getWorkTimer() <= time)
+	if (e->isHungry())
 	{
-		std::cout << Timer::instance().getTimeString() << e->getName() << ": " << e->getWork().getActiveJobExecuteLine() << std::endl;
-		e->setWorkTimer(time + e->getWorkCD());
-		e->increaseFatigue(e->getWork().getJobIntensity());
-		e->increaseJobResource(e->getWork().getActiveJobResourceAmount());
+		this->stateChangeReason = EATING;
+		e->changeState(e->getAgentStateMachine()->states.at(WALKING));
+		return;
 	}
+
+	//if (e->getWorkTimer() <= time)
+	//{
+	//	std::cout << Timer::instance().getTimeString() << e->getName() << ": " << e->getWork().getActiveJobExecuteLine() << std::endl;
+	//	e->setWorkTimer(time + e->getWorkCD());
+	//	e->increaseFatigue(e->getWork().getJobIntensity());
+	//	e->increaseJobResource(e->getWork().getActiveJobResourceAmount());
+	//}
 }
 
 template<typename EntityType, typename StateType>
@@ -97,8 +120,10 @@ inline void WorkState<EntityType, StateType>::exit(EntityType* e)
 	case WORKING:
 		break;
 	case EATING:
+		reasonLine = " because he's hungry.";
 		break;
 	case DRINKING:
+		reasonLine = " because he's thirsty.";
 		break;
 	case SLEEPING:
 		reasonLine = " because he's tired.";

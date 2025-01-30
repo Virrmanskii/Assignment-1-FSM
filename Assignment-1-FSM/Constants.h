@@ -16,5 +16,6 @@ enum AgentState
 	BUYING,
 	SELLING,
 	WALKING,
-	SOCIALIZE
+	SOCIALIZE,
+	DEAD
 };

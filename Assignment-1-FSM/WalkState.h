@@ -26,7 +26,7 @@ inline void WalkState<EntityType, StateType>::enter(EntityType* e)
 {
 	const char* reasonLine = "";
 
-	switch (this->stateChangeReason)
+	switch (e->getAgentStateMachine()->getPreviousState()->stateChangeReason)
 	{
 	case WORKING:
 		reasonLine = "to work ";

@@ -147,6 +147,7 @@
     <ClInclude Include="BaseGameEntity.h" />
     <ClInclude Include="BuyState.h" />
     <ClInclude Include="Constants.h" />
+    <ClInclude Include="DeadState.h" />
     <ClInclude Include="DrinkState.h" />
     <ClInclude Include="EatState.h" />
     <ClInclude Include="EnterMineAndDigForGold.h" />

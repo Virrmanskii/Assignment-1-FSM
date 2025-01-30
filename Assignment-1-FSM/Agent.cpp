@@ -38,9 +38,10 @@ void Agent::update()
 	{
 		costOfExisting();
 		this->cycleTimer = time + cycleCD;
+		this->agentStateMachine->update();
 	}
 	
-	this->agentStateMachine->update();
+	
 	//this->stateMachine->update();
 	//if (currentState)
 	//{
@@ -290,6 +291,51 @@ void Agent::decreaseMoney(int decrease)
 	}
 }
 
+bool Agent::isHungry()
+{
+	if (this->hunger >= 50)
+	{
+		return true;
+	}
+	return false;
+}
+
+bool Agent::isThirsty()
+{
+	if (this->thirst >= 50)
+	{
+		return true;
+	}
+	return false;
+}
+
+bool Agent::isFatigued()
+{
+	if (this->fatigue >= 150)
+	{
+		return true;
+	}
+	return false;
+}
+
+bool Agent::hasMoney()
+{
+	if (this->money >= 60)
+	{
+		return true;
+	}
+	return false;
+}
+
+bool Agent::isDead()
+{
+	if (this->fatigue >= 200 || this->thirst >= 100|| this->hunger >= 100)
+	{
+		return true;
+	}
+	return false;
+}
+
 
 //AgentStateMachine class defenitions
 //-------------------------------------------------------------------------------------------------------------------
@@ -308,6 +354,7 @@ void AgentStateMachine::setUp()
 	this->states[AgentState::EATING] = new EatState<Agent, AgentState>(); 
 	this->states[AgentState::DRINKING] = new DrinkState<Agent, AgentState>();
 	this->states[AgentState::BUYING] = new BuyState<Agent, AgentState>();
+	this->states[AgentState::DEAD] = new DeadState<Agent, AgentState>();
 
 	this->setCurrentState(this->states.at(AgentState::WORKING));
 }

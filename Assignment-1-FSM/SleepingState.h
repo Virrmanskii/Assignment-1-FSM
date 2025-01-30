@@ -55,27 +55,51 @@ template<typename EntityType, typename StateType>
 inline void SleepingState<EntityType, StateType>::execute(EntityType* e)
 {
 	double time = Timer::instance().getTime();
-	//std::cout << e->getFatigue() << std::endl;
-	if (e->getFatigue() == 0 && e->getHunger() > 100)
+
+	if (e->isDead())
 	{
-		this->stateChangeReason = EATING;
-		//std::cout << Timer::instance().getTimeString() << e->getName() << ": Wakes up " << std::endl; 
-		e->changeState(e->getAgentStateMachine()->states.at(EATING));
+		this->stateChangeReason = DEAD;
+		e->changeState(e->getAgentStateMachine()->states.at(DEAD));
+		return;
 	}
 
-	//if (e->getFatigue() == 0 && e->getThirst() > 80)
+	std::cout << Timer::instance().getTimeString() << e->getName() << ": Sleeping" << std::endl;
+	e->decreaseFatigue(20);
+
+	if (e->getThirst() >= 50)
+	{
+		this->stateChangeReason = DRINKING;
+		e->changeState(e->getAgentStateMachine()->states.at(DRINKING));
+		return;
+	}
+
+	if (e->getHunger() >= 50)
+	{
+		this->stateChangeReason = EATING;
+		e->changeState(e->getAgentStateMachine()->states.at(EATING));
+		return;
+	}
+	//std::cout << e->getFatigue() << std::endl;
+	//if (e->getFatigue() == 0 && e->getHunger() >= 50)
+	//{
+	//	this->stateChangeReason = EATING;
+	//	//std::cout << Timer::instance().getTimeString() << e->getName() << ": Wakes up " << std::endl; 
+	//	e->changeState(e->getAgentStateMachine()->states.at(EATING));
+	//}
+
+	//if (e->getFatigue() == 0 && e->getThirst() >= 50)
 	//{
 	//	this->stateChangeReason = DRINKING; 
 	//	//std::cout << Timer::instance().getTimeString() << e->getName() << ": Wakes up " << std::endl;
 	//	e->changeState(e->getAgentStateMachine()->states.at(DRINKING));
 	//}
 
-	if (e->getSleepTimer() <= time)
-	{
-		std::cout << Timer::instance().getTimeString() << e->getName() << ": Sleeping" << std::endl;
-		e->setSleepTimer(time + e->getSleepCD());
-		e->decreaseFatigue(20);
-	}
+	//if (e->getSleepTimer() <= time)
+	//{
+	//	std::cout << Timer::instance().getTimeString() << e->getName() << ": Sleeping" << std::endl;
+	//	e->setSleepTimer(time + e->getSleepCD());
+	//	e->decreaseFatigue(20);
+	//}
 }
 
 template<typename EntityType, typename StateType>
