@@ -10,7 +10,7 @@ AgentManager* AgentManager::instance()
 	return &manager;
 }
 
-void AgentManager::addEntity(Agent* newAgent)
+void AgentManager::addEntity(BaseGameEntity* newAgent)
 {
 	//this->agents.push_back(newAgent);
 	for (auto i : this->agents)
@@ -24,12 +24,12 @@ void AgentManager::addEntity(Agent* newAgent)
 	this->agents[newAgent->ID()] = newAgent;
 }
 
-void AgentManager::removeEntity(Agent* agentToDelete)
+void AgentManager::removeEntity(BaseGameEntity* agentToDelete)
 {
 
 }
 
-Agent* AgentManager::getEntityFromID(int id)
+BaseGameEntity* AgentManager::getEntityFromID(int id)
 {
 	return this->agents.at(id);
 }

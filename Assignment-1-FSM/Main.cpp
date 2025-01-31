@@ -1,8 +1,8 @@
 #include <iostream>
 #include <chrono>
 #include "Time.h"
-#include "GameWorld.h"
-//#include "Agent.h"
+//#include "GameWorld.h"
+#include "Agent.h"
 #include "AgentManager.h"
 
 void main()
@@ -12,6 +12,7 @@ void main()
 
 	//AgentManager entities;
 	//entities.addEntity(&bob);
+	AgentManager::instance()->addEntity(&bob);
 	AgentManager::instance()->addEntity(&bobbelina);
 
 

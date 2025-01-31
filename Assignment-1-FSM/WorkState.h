@@ -3,6 +3,7 @@
 #include <iostream>
 #include "Time.h"
 #include "Constants.h"
+#include "MessageDispatcher.h"
 
 //#include "Agent.h"
 //class Agent;
@@ -80,6 +81,7 @@ inline void WorkState<EntityType, StateType>::execute(EntityType* e)
 		return;
 	}
 	
+	MessageDispatcher::instance()->dispatchMessage(0, e->ID(), 1, Message::SOCIOLIZE);
 
 	if (e->isFatigued())
 	{
@@ -150,7 +152,8 @@ inline bool WorkState<EntityType, StateType>::onMessage(EntityType* entity, cons
 	switch (msg.msg)
 	{
 	case Message::SOCIOLIZE:
-
+		std::cout << Timer::instance().getTimeString() << entity->getName() << ": ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n";
+		return true;
 		break;
 	default:
 		break;
