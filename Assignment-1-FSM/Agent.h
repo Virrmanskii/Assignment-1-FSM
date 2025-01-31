@@ -60,6 +60,7 @@ public:
 	Agent(int id, Work job, std::string name);
 	
 	void update();
+	bool handleMessage(const Telegram& meg) override;
 	void changeState(State2<Agent, AgentState>* newState);
 
 	void setWork(Work newWork);

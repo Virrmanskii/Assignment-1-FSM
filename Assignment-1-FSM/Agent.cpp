@@ -49,6 +49,11 @@ void Agent::update()
 	//}
 }
 
+bool Agent::handleMessage(const Telegram& msg)
+{
+	return this->agentStateMachine->handleMessage(msg);
+}
+
 void Agent::changeState(State2<Agent, AgentState>* newState)
 {
 	agentStateMachine->changeState(newState);

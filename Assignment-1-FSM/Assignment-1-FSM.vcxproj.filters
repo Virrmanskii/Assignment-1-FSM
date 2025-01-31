@@ -51,6 +51,12 @@
     <ClCompile Include="AgentStateMachine.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="AgentManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MessageDispatcher.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Time.h">
@@ -106,6 +112,15 @@
     </ClInclude>
     <ClInclude Include="DeadState.h">
       <Filter>Header Files\MinerStates</Filter>
+    </ClInclude>
+    <ClInclude Include="AgentManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MessageDispatcher.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Telegram.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

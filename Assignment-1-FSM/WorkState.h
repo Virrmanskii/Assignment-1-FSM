@@ -29,6 +29,7 @@ public:
 	void enter(EntityType* e) override;
 	void execute(EntityType* e) override;
 	void exit(EntityType* e) override;
+	bool onMessage(EntityType* entity, const Telegram& msg) override;
 };
 
 template<typename EntityType, typename StateType>
@@ -141,4 +142,18 @@ inline void WorkState<EntityType, StateType>::exit(EntityType* e)
 	}
 
 	std::cout << Timer::instance().getTimeString() << e->getName() << ": " << e->getWork().getActiveJobExitLine() << reasonLine << std::endl;
+}
+
+template<typename EntityType, typename StateType>
+inline bool WorkState<EntityType, StateType>::onMessage(EntityType* entity, const Telegram& msg)
+{
+	switch (msg.msg)
+	{
+	case Message::SOCIOLIZE:
+
+		break;
+	default:
+		break;
+	}
+	return false;
 }

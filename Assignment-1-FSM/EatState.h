@@ -13,6 +13,7 @@ public:
 	void enter(EntityType* e) override;
 	void execute(EntityType* e) override;
 	void exit(EntityType* e) override;
+	bool onMessage(EntityType* entity, const Telegram& msg) override;
 };
 
 template<typename EntityType, typename StateType>
@@ -48,7 +49,6 @@ inline void EatState<EntityType, StateType>::execute(EntityType* e)
 
 	if (e->getEatTimer() <= time && e->getFood() > 0 && e->getHunger() > 20)
 	{
-		std::cout << e->getHunger() << std::endl;
 		e->setEatTimer(time + e->getEatCD());
 		e->setFood(-1);
 		e->decreaseHunger(30);
@@ -57,7 +57,7 @@ inline void EatState<EntityType, StateType>::execute(EntityType* e)
 
 	//if (e->getHunger() < 10)
 	
-	if (e->getThirst() > 30)
+	if (e->getThirst() > 30 && e->getWater() > 0)
 	{
 		//TODO change to eating statethis->stateChangeReason = BUYING; 
 		this->stateChangeReason = DRINKING;
@@ -115,4 +115,15 @@ inline void EatState<EntityType, StateType>::exit(EntityType* e)
 	}
 
 	//std::cout << Timer::instance().getTimeString() << e->getName() << ": Leaves home to " << reasonLine << std::endl;
+}
+
+template<typename EntityType, typename StateType>
+inline bool EatState<EntityType, StateType>::onMessage(EntityType* entity, const Telegram& msg)
+{
+	switch (msg.msg)
+	{
+	default:
+		break;
+	}
+	return false;
 }

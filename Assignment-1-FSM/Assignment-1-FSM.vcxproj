@@ -133,9 +133,11 @@
     <ClCompile Include="AgentStateMachine.cpp" />
     <ClCompile Include="BaseGameEntity.cpp" />
     <ClCompile Include="EnterMineAndDigForGold.cpp" />
+    <ClCompile Include="AgentManager.cpp" />
     <ClCompile Include="GameWorld.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Agent.cpp" />
+    <ClCompile Include="MessageDispatcher.cpp" />
     <ClCompile Include="State.cpp" />
     <ClCompile Include="State2.0.h" />
     <ClCompile Include="Time.cpp" />
@@ -151,12 +153,15 @@
     <ClInclude Include="DrinkState.h" />
     <ClInclude Include="EatState.h" />
     <ClInclude Include="EnterMineAndDigForGold.h" />
+    <ClInclude Include="AgentManager.h" />
     <ClInclude Include="GameWorld.h" />
     <ClInclude Include="Agent.h" />
+    <ClInclude Include="MessageDispatcher.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="SleepingState.h" />
     <ClInclude Include="State.h" />
     <ClInclude Include="StateMachine.h" />
+    <ClInclude Include="Telegram.h" />
     <ClInclude Include="Time.h" />
     <ClInclude Include="WalkState.h" />
     <ClInclude Include="Work.h" />

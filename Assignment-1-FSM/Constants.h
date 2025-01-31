@@ -19,3 +19,10 @@ enum AgentState
 	SOCIALIZE,
 	DEAD
 };
+
+enum Message
+{
+	SOCIOLIZE,
+	YES,
+	NO
+};

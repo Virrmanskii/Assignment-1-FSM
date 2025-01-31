@@ -13,6 +13,7 @@ public:
 	void enter(EntityType* e) override;
 	void execute(EntityType* e) override;
 	void exit(EntityType* e) override;
+	bool onMessage(EntityType* entity, const Telegram& msg) override;
 };
 
 template<typename EntityType, typename StateType>
@@ -49,7 +50,7 @@ inline void DrinkState<EntityType, StateType>::execute(EntityType* e)
 
 	//if (e->getThirst() < 10)
 	
-	if (e->getHunger() > 40) 
+	if (e->getHunger() > 40 && e->getFood() > 0) 
 	{
 		//TODO change to eating statethis->stateChangeReason = BUYING; 
 		this->stateChangeReason = EATING;
@@ -81,4 +82,15 @@ inline void DrinkState<EntityType, StateType>::execute(EntityType* e)
 template<typename EntityType, typename StateType>
 inline void DrinkState<EntityType, StateType>::exit(EntityType* e)
 {
+}
+
+template<typename EntityType, typename StateType>
+inline bool DrinkState<EntityType, StateType>::onMessage(EntityType* entity, const Telegram& msg)
+{
+	switch (msg.msg)
+	{
+	default:
+		break;
+	}
+	return false;
 }

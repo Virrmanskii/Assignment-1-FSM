@@ -14,6 +14,7 @@ public:
 	void enter(EntityType* e) override;
 	void execute(EntityType* e) override;
 	void exit(EntityType* e) override;
+	bool onMessage(EntityType* entity, const Telegram& msg) override;
 };
 
 template<typename EntityType, typename StateType>
@@ -104,4 +105,15 @@ inline void WalkState<EntityType, StateType>::exit(EntityType* e)
 
 	std::cout << Timer::instance().getTimeString() << e->getName() << ": Stops walking" << std::endl;
 	this->walktick = 0;
+}
+
+template<typename EntityType, typename StateType>
+inline bool WalkState<EntityType, StateType>::onMessage(EntityType* entity, const Telegram& msg)
+{
+	switch (msg.msg)
+	{
+	default:
+		break;
+	}
+	return false;
 }

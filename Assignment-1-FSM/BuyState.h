@@ -13,6 +13,7 @@ public:
 	void enter(EntityType* e) override;
 	void execute(EntityType* e) override;
 	void exit(EntityType* e) override;
+	bool onMessage(EntityType* entity, const Telegram& msg) override;
 };
 
 template<typename EntityType, typename StateType>
@@ -137,4 +138,15 @@ template<typename EntityType, typename StateType>
 inline void BuyState<EntityType, StateType>::exit(EntityType* e)
 {
 	std::cout << Timer::instance().getTimeString() << e->getName() << ": Exits the store" << std::endl;
+}
+
+template<typename EntityType, typename StateType>
+inline bool BuyState<EntityType, StateType>::onMessage(EntityType* entity, const Telegram& msg)
+{
+	switch (msg.msg)
+	{
+	default:
+		break;
+	}
+	return false;
 }

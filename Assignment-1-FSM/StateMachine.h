@@ -22,6 +22,7 @@ public:
 	void changeState(State2<Entity_Type, Entity_State>* newState);
 	void revertToPreviousState();
 	void setOwner(Entity_Type* owner);
+	bool handleMessage(const Telegram& msg) const;
 
 protected:
 	
@@ -119,4 +120,14 @@ template<typename Entity_Type, typename Entity_State>
 inline void StateMachine<Entity_Type, Entity_State>::setOwner(Entity_Type* owner)
 {
 	this->owner = owner;
+}
+
+template<typename Entity_Type, typename Entity_State>
+inline bool StateMachine<Entity_Type, Entity_State>::handleMessage(const Telegram& msg) const
+{
+	if (this->currentState && this->currentState->onMessage(this->owner, msg))
+	{
+		return true;
+	}
+	return false;
 }
