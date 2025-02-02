@@ -354,7 +354,7 @@ bool Agent::isDead()
 
 bool Agent::canSocialize()
 {
-	if (!(isHungry() && isFatigued() && isThirsty()))
+	if (!isHungry() && this->fatigue < 80 && !isThirsty())
 	{
 		return true;
 	}

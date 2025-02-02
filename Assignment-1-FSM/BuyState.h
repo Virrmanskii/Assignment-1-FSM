@@ -69,7 +69,6 @@ inline void BuyState<EntityType, StateType>::execute(EntityType* e)
 		}
 		e->decreaseJobResource(nr);
 		e->increaseMoney(nr * (e->getWork().getResourceValue()));
-		std::cout << e->getFood() << std::endl;
 		std::cout << Timer::instance().getTimeString() << e->getName() << ": Sells " << nr << " " << e->getWork().getResourceString() << "and recieves "<< nr * (e->getWork().getResourceValue()) << "kr" << std::endl;
 	}
 
