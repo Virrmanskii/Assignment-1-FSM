@@ -11,6 +11,7 @@ class Timer
 		void stopDeltaTime();
 		double getDeltaTime();
 		std::string getTimeString();
+		std::string getTimeString(double time);
 	private:
 		std::chrono::system_clock::time_point previousTime;// = std::chrono::system_clock::now();
 		std::chrono::system_clock::time_point currentTime;

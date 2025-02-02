@@ -2,6 +2,9 @@
 #include "State2.0.h"
 #include <iostream>
 #include "Time.h"
+#include "Constants.h"
+#include "MessageDispatcher.h"
+#include "AgentManager.h"
 
 template <typename EntityType, typename StateType>
 class SleepingState : public State2<EntityType, StateType>
@@ -23,6 +26,7 @@ inline SleepingState<EntityType, StateType>::SleepingState()
 template<typename EntityType, typename StateType>
 inline void SleepingState<EntityType, StateType>::enter(EntityType* e)
 {
+	e->setLocation(LocationType::HOME);
 	const char* reasonLine = "";
 
 	switch (e->getAgentStateMachine()->getPreviousState()->stateChangeReason)
@@ -142,6 +146,36 @@ inline bool SleepingState<EntityType, StateType>::onMessage(EntityType* entity, 
 {
 	switch (msg.msg)
 	{
+	case Message::TIME_TO_SOCIALIZE:
+
+		if (entity->canSocialize())
+		{
+			//entity->getAgentStateMachine()->getCurrentState()->stateChangeReason = AgentState::SOCIALIZE;
+			//entity->changeState(entity->getAgentStateMachine()->states.at(WALKING));
+			MessageDispatcher::instance()->dispatchMessage(0.0, entity->ID(), entity->ID(), Message::CAN_SOCIALIZE, 0.0);
+		}
+		else
+		{
+			std::cout << Timer::instance().getTimeString() << entity->getName() << ": Aww i can't come----------------------------------------------------------------------------------------------\n";
+		}
+
+		return true;
+		break;
+
+	case Message::CAN_SOCIALIZE:
+		std::cout << Timer::instance().getTimeString() << entity->getName() << ": Oh right, time to hang out\n";
+		entity->getAgentStateMachine()->getCurrentState()->stateChangeReason = AgentState::SOCIALIZE;
+		entity->changeState(entity->getAgentStateMachine()->states.at(WALKING));
+
+		return true;
+		break;
+	case Message::WANT_TO_SOCIALIZE:
+		std::cout << Timer::instance().getTimeString() << entity->getName() << ": Of course i want to hang out at " << Timer::instance().getTimeString(msg.timeDisplacement) << "\n";
+		MessageDispatcher::instance()->dispatchMessage(msg.timeDisplacement, entity->ID(), entity->ID(), Message::TIME_TO_SOCIALIZE, 0.0);
+		MessageDispatcher::instance()->dispatchMessage(msg.timeDisplacement, entity->ID(), msg.sender, Message::TIME_TO_SOCIALIZE, 0.0);
+		return true;
+		break;
+
 	default:
 		break;
 	}

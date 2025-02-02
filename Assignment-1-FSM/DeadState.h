@@ -37,6 +37,7 @@ inline void DeadState<EntityType, StateType>::execute(EntityType* e)
 template<typename EntityType, typename StateType>
 inline void DeadState<EntityType, StateType>::exit(EntityType* e)
 {
+
 }
 
 template<typename EntityType, typename StateType>

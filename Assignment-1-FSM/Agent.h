@@ -11,6 +11,7 @@
 #include "DrinkState.h"
 #include "BuyState.h"
 #include "DeadState.h"
+#include "SocializeState.h"
 
 #include "Work.h"
 #include "EnterMineAndDigForGold.h"
@@ -37,6 +38,8 @@ private:
 	int hunger;
 	int food = 3;
 	int fatigue;
+	
+
 	bool workEquipment;
 	double workTimer = 0;
 	int workCD = 5;
@@ -48,6 +51,7 @@ private:
 	int eatCD = 2;
 	double drinkTimer = 0;
 	int drinkCD = 1;
+
 	double cycleTimer = 0;
 	double cycleCD = 1;
 
@@ -55,6 +59,8 @@ private:
 	
 
 public:
+	bool response = false;
+
 	Agent();
 	~Agent() {};
 	Agent(int id, Work job, std::string name);
@@ -62,6 +68,8 @@ public:
 	void update();
 	bool handleMessage(const Telegram& meg) override;
 	void changeState(State2<Agent, AgentState>* newState);
+	LocationType getLocation();
+	void setLocation(LocationType newLocation);
 
 	void setWork(Work newWork);
 	Work getWork();
@@ -120,6 +128,7 @@ public:
 	bool isFatigued();
 	bool hasMoney();
 	bool isDead();
+	bool canSocialize();
 };
 
 

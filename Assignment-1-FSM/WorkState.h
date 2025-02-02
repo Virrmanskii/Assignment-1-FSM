@@ -4,6 +4,7 @@
 #include "Time.h"
 #include "Constants.h"
 #include "MessageDispatcher.h"
+#include "AgentManager.h"
 
 //#include "Agent.h"
 //class Agent;
@@ -41,6 +42,8 @@ inline WorkState<EntityType, StateType>::WorkState()
 template<typename EntityType, typename StateType>
 inline void WorkState<EntityType, StateType>::enter(EntityType* e)
 {
+	e->setLocation(e->getWork().getWorkLocation());
+
 	switch (this->stateChangeReason)
 	{
 	case WORKING:
@@ -81,7 +84,22 @@ inline void WorkState<EntityType, StateType>::execute(EntityType* e)
 		return;
 	}
 	
-	MessageDispatcher::instance()->dispatchMessage(0, e->ID(), 1, Message::SOCIOLIZE);
+	// 2% propability to trigger meetup message
+	bool trueFalse = (rand() % 100) < 20;
+	if (trueFalse)
+	{
+		if (e->canSocialize())
+		{
+			for (auto agent : AgentManager::instance()->agents)
+			{
+				if (e->ID() != agent.first)
+				{
+					std::cout << Timer::instance().getTimeString() << e->getName() << ": sent message to " << agent.second->getName() << " to hang out at "<< Timer::instance().getTimeString(time + 20.0) << "\n";
+					MessageDispatcher::instance()->dispatchMessage(0.0, e->ID(), agent.first, Message::WANT_TO_SOCIALIZE, 20.0);
+				}
+			}
+		}
+	}
 
 	if (e->isFatigued())
 	{
@@ -151,10 +169,36 @@ inline bool WorkState<EntityType, StateType>::onMessage(EntityType* entity, cons
 {
 	switch (msg.msg)
 	{
-	case Message::SOCIOLIZE:
-		std::cout << Timer::instance().getTimeString() << entity->getName() << ": ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n";
+	case Message::TIME_TO_SOCIALIZE:
+		
+		if (entity->canSocialize())
+		{
+			//entity->getAgentStateMachine()->getCurrentState()->stateChangeReason = AgentState::SOCIALIZE;
+			//entity->changeState(entity->getAgentStateMachine()->states.at(WALKING));
+			MessageDispatcher::instance()->dispatchMessage(0.0, entity->ID(), entity->ID(), Message::CAN_SOCIALIZE, 0.0);
+		}
+		else
+		{
+			std::cout << Timer::instance().getTimeString() << entity->getName() << ": Aww i can't come----------------------------------------------------------------------------------------------\n";
+		}
+		
 		return true;
 		break;
+
+	case Message::CAN_SOCIALIZE:
+		std::cout << Timer::instance().getTimeString() << entity->getName() << ": Oh right, time to hang out\n";
+		entity->getAgentStateMachine()->getCurrentState()->stateChangeReason = AgentState::SOCIALIZE;
+		entity->changeState(entity->getAgentStateMachine()->states.at(WALKING));
+
+		return true;
+		break;
+	case Message::WANT_TO_SOCIALIZE:
+		std::cout << Timer::instance().getTimeString() << entity->getName() << ": Of course i want to hang out at " << Timer::instance().getTimeString(msg.timeDisplacement) << "\n";
+		MessageDispatcher::instance()->dispatchMessage(msg.timeDisplacement, entity->ID(), entity->ID(), Message::TIME_TO_SOCIALIZE, 0.0);
+		MessageDispatcher::instance()->dispatchMessage(msg.timeDisplacement, entity->ID(), msg.sender, Message::TIME_TO_SOCIALIZE, 0.0);
+		return true;
+		break;
+
 	default:
 		break;
 	}

@@ -40,7 +40,8 @@ void Agent::update()
 		this->cycleTimer = time + cycleCD;
 		this->agentStateMachine->update();
 	}
-	
+	//costOfExisting();
+	//this->agentStateMachine->update();
 	
 	//this->stateMachine->update();
 	//if (currentState)
@@ -57,6 +58,16 @@ bool Agent::handleMessage(const Telegram& msg)
 void Agent::changeState(State2<Agent, AgentState>* newState)
 {
 	agentStateMachine->changeState(newState);
+}
+
+LocationType Agent::getLocation()
+{
+	return this->location;
+}
+
+void Agent::setLocation(LocationType newLocation)
+{
+	this->location = newLocation;
 }
 
 void Agent::setWork(Work newWork)
@@ -341,6 +352,15 @@ bool Agent::isDead()
 	return false;
 }
 
+bool Agent::canSocialize()
+{
+	if (!(isHungry() && isFatigued() && isThirsty()))
+	{
+		return true;
+	}
+	return false;
+}
+
 
 //AgentStateMachine class defenitions
 //-------------------------------------------------------------------------------------------------------------------
@@ -360,6 +380,7 @@ void AgentStateMachine::setUp()
 	this->states[AgentState::DRINKING] = new DrinkState<Agent, AgentState>();
 	this->states[AgentState::BUYING] = new BuyState<Agent, AgentState>();
 	this->states[AgentState::DEAD] = new DeadState<Agent, AgentState>();
+	this->states[AgentState::SOCIALIZE] = new SocializeState<Agent, AgentState>();
 
 	this->setCurrentState(this->states.at(AgentState::WORKING));
 }

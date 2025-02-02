@@ -122,6 +122,9 @@
     <ClInclude Include="Telegram.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="SocializeState.h">
+      <Filter>Header Files\MinerStates</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Assignment-1-FSM.rc">

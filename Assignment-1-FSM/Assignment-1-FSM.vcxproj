@@ -159,6 +159,7 @@
     <ClInclude Include="MessageDispatcher.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="SleepingState.h" />
+    <ClInclude Include="SocializeState.h" />
     <ClInclude Include="State.h" />
     <ClInclude Include="StateMachine.h" />
     <ClInclude Include="Telegram.h" />

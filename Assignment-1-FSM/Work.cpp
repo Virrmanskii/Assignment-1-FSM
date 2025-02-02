@@ -140,6 +140,24 @@ int Work::getJobIntensity()
 	return this->jobIntensity;
 }
 
+LocationType Work::getWorkLocation()
+{
+	switch (this->activeJob)
+	{
+	case WorkType::Miner:
+		return LocationType::MINE;
+		break;
+
+	case WorkType::Fisher:
+		return LocationType::WHARF;
+		break;
+
+	default:
+		break;
+	}
+	return LocationType();
+}
+
 void Work::updateJobIntensity()
 {
 	int newValue = 0;

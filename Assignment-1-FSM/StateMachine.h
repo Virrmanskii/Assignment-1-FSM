@@ -104,6 +104,13 @@ template<typename Entity_Type, typename Entity_State>
 inline void StateMachine<Entity_Type, Entity_State>::changeState(State2<Entity_Type, Entity_State>* newState)
 {
 	//TODO: make check for state change to null
+
+	//Check for not switching to the same state.
+	if (newState == this->currentState)
+	{
+		return;
+	}
+
 	this->previousState = this->currentState;
 	this->currentState->exit(this->owner);
 	this->currentState = newState;

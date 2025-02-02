@@ -2,9 +2,12 @@
 enum LocationType
 {
 	HOME,
+	MINE,
+	WHARF,
 	WORK,
 	STORE,
-	BAR,
+	ACTIVITY_CENTER,
+	TRAVELING
 };
 
 enum AgentState
@@ -22,7 +25,9 @@ enum AgentState
 
 enum Message
 {
-	SOCIOLIZE,
+	CAN_SOCIALIZE,
+	WANT_TO_SOCIALIZE,
+	TIME_TO_SOCIALIZE,
 	YES,
 	NO
 };

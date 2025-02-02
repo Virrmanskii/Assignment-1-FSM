@@ -1,5 +1,6 @@
 #pragma once
 #include <iostream>
+#include "Constants.h"
 
 enum WorkType
 {
@@ -22,6 +23,7 @@ public:
 	int getActiveJobResourceAmount();
 	int getResourceValue();
 	int getJobIntensity();
+	LocationType getWorkLocation();
 
 private:
 	WorkType activeJob;

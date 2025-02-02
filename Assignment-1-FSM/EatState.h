@@ -2,6 +2,9 @@
 #include "State2.0.h"
 #include <iostream>
 #include "Time.h"
+#include "Constants.h"
+#include "MessageDispatcher.h"
+#include "AgentManager.h"
 
 template <typename EntityType, typename StateType>
 class EatState : public State2<EntityType, StateType>
@@ -24,6 +27,31 @@ inline EatState<EntityType, StateType>::EatState()
 template<typename EntityType, typename StateType>
 inline void EatState<EntityType, StateType>::enter(EntityType* e)
 {
+	e->setLocation(LocationType::HOME);
+
+	switch (this->stateChangeReason)
+	{
+	case WORKING:
+		break;
+	case EATING:
+		break;
+	case DRINKING:
+		break;
+	case SLEEPING:
+		break;
+	case BUYING:
+		break;
+	case SELLING:
+		break;
+	case WALKING:
+		break;
+	case SOCIALIZE:
+		break;
+	case DEAD:
+		break;
+	default:
+		break;
+	}
 	if (e->getFood() > 0)
 	{
 		std::cout << Timer::instance().getTimeString() << e->getName() << ": Finds food " << std::endl;
@@ -47,14 +75,20 @@ inline void EatState<EntityType, StateType>::execute(EntityType* e)
 	//	e->changeState(e->getAgentStateMachine()->states.at(WALKING));
 	//}
 
-	if (e->getEatTimer() <= time && e->getFood() > 0 && e->getHunger() > 20)
+	//if (e->getEatTimer() <= time && e->getFood() > 0 && e->getHunger() > 20)
+	//{
+	//	e->setEatTimer(time + e->getEatCD());
+	//	e->setFood(-1);
+	//	e->decreaseHunger(30);
+	//	std::cout << Timer::instance().getTimeString() << e->getName() << ": Eating" << std::endl;
+	//}
+
+	if (e->getFood() > 0 && e->getHunger() > 20)
 	{
-		e->setEatTimer(time + e->getEatCD());
 		e->setFood(-1);
 		e->decreaseHunger(30);
 		std::cout << Timer::instance().getTimeString() << e->getName() << ": Eating" << std::endl;
 	}
-
 	//if (e->getHunger() < 10)
 	
 	if (e->getThirst() > 30 && e->getWater() > 0)
@@ -122,6 +156,36 @@ inline bool EatState<EntityType, StateType>::onMessage(EntityType* entity, const
 {
 	switch (msg.msg)
 	{
+	case Message::TIME_TO_SOCIALIZE:
+
+		if (entity->canSocialize())
+		{
+			//entity->getAgentStateMachine()->getCurrentState()->stateChangeReason = AgentState::SOCIALIZE;
+			//entity->changeState(entity->getAgentStateMachine()->states.at(WALKING));
+			MessageDispatcher::instance()->dispatchMessage(0.0, entity->ID(), entity->ID(), Message::CAN_SOCIALIZE, 0.0);
+		}
+		else
+		{
+			std::cout << Timer::instance().getTimeString() << entity->getName() << ": Aww i can't come----------------------------------------------------------------------------------------------\n";
+		}
+
+		return true;
+		break;
+
+	case Message::CAN_SOCIALIZE:
+		std::cout << Timer::instance().getTimeString() << entity->getName() << ": Oh right, time to hang out\n";
+		entity->getAgentStateMachine()->getCurrentState()->stateChangeReason = AgentState::SOCIALIZE;
+		entity->changeState(entity->getAgentStateMachine()->states.at(WALKING));
+
+		return true;
+		break;
+	case Message::WANT_TO_SOCIALIZE:
+		std::cout << Timer::instance().getTimeString() << entity->getName() << ": Of course i want to hang out at " << Timer::instance().getTimeString(msg.timeDisplacement) << "\n";
+		MessageDispatcher::instance()->dispatchMessage(msg.timeDisplacement, entity->ID(), entity->ID(), Message::TIME_TO_SOCIALIZE, 0.0);
+		MessageDispatcher::instance()->dispatchMessage(msg.timeDisplacement, entity->ID(), msg.sender, Message::TIME_TO_SOCIALIZE, 0.0);
+		return true;
+		break;
+
 	default:
 		break;
 	}
