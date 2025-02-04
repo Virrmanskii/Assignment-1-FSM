@@ -12,16 +12,12 @@ Timer& Timer::instance() {
     return timer;
 }
 
-//void Timer::startDeltaTime()
-//{
-//    this->currentTime = std::chrono::system_clock::now();
-//}
 
 void Timer::update()
 {
     this->currentTime = std::chrono::system_clock::now();
     this->elapsedTime = std::chrono::duration_cast<std::chrono::nanoseconds>(this->currentTime - this->previousTime).count() / (1000000000.0); 
-    this->time += 5*this->elapsedTime;
+    this->time += 3*this->elapsedTime;
 }
 
 double Timer::getTime()

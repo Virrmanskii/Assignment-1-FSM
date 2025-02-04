@@ -13,7 +13,7 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Header Files\MinerStates">
+    <Filter Include="Header Files\States">
       <UniqueIdentifier>{be202249-2d14-4d63-adfc-a00ab44ae79c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -81,7 +81,7 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="EnterMineAndDigForGold.h">
-      <Filter>Header Files\MinerStates</Filter>
+      <Filter>Header Files\States</Filter>
     </ClInclude>
     <ClInclude Include="StateMachine.h">
       <Filter>Header Files</Filter>
@@ -90,28 +90,28 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="WorkState.h">
-      <Filter>Header Files\MinerStates</Filter>
+      <Filter>Header Files\States</Filter>
     </ClInclude>
     <ClInclude Include="AgentStateMachine.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="WalkState.h">
-      <Filter>Header Files\MinerStates</Filter>
+      <Filter>Header Files\States</Filter>
     </ClInclude>
     <ClInclude Include="SleepingState.h">
-      <Filter>Header Files\MinerStates</Filter>
+      <Filter>Header Files\States</Filter>
     </ClInclude>
     <ClInclude Include="EatState.h">
-      <Filter>Header Files\MinerStates</Filter>
+      <Filter>Header Files\States</Filter>
     </ClInclude>
     <ClInclude Include="DrinkState.h">
-      <Filter>Header Files\MinerStates</Filter>
+      <Filter>Header Files\States</Filter>
     </ClInclude>
     <ClInclude Include="BuyState.h">
-      <Filter>Header Files\MinerStates</Filter>
+      <Filter>Header Files\States</Filter>
     </ClInclude>
     <ClInclude Include="DeadState.h">
-      <Filter>Header Files\MinerStates</Filter>
+      <Filter>Header Files\States</Filter>
     </ClInclude>
     <ClInclude Include="AgentManager.h">
       <Filter>Header Files</Filter>
@@ -123,7 +123,7 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="SocializeState.h">
-      <Filter>Header Files\MinerStates</Filter>
+      <Filter>Header Files\States</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

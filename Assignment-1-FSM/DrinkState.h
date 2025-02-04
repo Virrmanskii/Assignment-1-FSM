@@ -59,7 +59,6 @@ inline void DrinkState<EntityType, StateType>::enter(EntityType* e)
 	else
 	{
 		std::cout << Timer::instance().getTimeString() << e->getName() << ": Finds nothing to drink " << std::endl;
-		//TODO change to store state to buy water
 	}
 }
 
@@ -68,26 +67,23 @@ inline void DrinkState<EntityType, StateType>::execute(EntityType* e)
 {
 	double time = Timer::instance().getTime();
 
-	if (e->getDrinkTimer() <= time && e->getWater() > 0 && e->getThirst() > 20)
+
+	if (e->getWater() > 0 && e->getThirst() > 20)
 	{
-		e->setDrinkTimer(time + e->getDrinkCD());
 		e->setWater(-1);
 		e->decreaseThirst(20);
 		std::cout << Timer::instance().getTimeString() << e->getName() << ": Drinking" << std::endl;
 	}
 
-	//if (e->getThirst() < 10)
 	
 	if (e->getHunger() > 40 && e->getFood() > 0) 
 	{
-		//TODO change to eating statethis->stateChangeReason = BUYING; 
 		this->stateChangeReason = EATING;
 		e->changeState(e->getAgentStateMachine()->states.at(EATING));
 		return;
 	}
 	if (e->getFatigue() >= 100)
 	{
-		//TODO change to sleep state
 		this->stateChangeReason = SLEEPING;
 		e->changeState(e->getAgentStateMachine()->states.at(SLEEPING));
 		return;
@@ -98,12 +94,6 @@ inline void DrinkState<EntityType, StateType>::execute(EntityType* e)
 		e->changeState(e->getAgentStateMachine()->states.at(WALKING));
 		return;
 	}
-	//if (e->getHunger() e->getFatigue())
-	//{
-
-	//}
-	//this->stateChangeReason = WORKING;
-	//e->changeState(e->getAgentStateMachine()->states.at(WORKING));
 	
 }     
 
@@ -133,7 +123,6 @@ inline void DrinkState<EntityType, StateType>::exit(EntityType* e)
 	default:
 		break;
 	}
-	//std::cout << Timer::instance().getTimeString() << e->getName() << ": " << std::endl;
 }
 
 template<typename EntityType, typename StateType>
@@ -145,13 +134,11 @@ inline bool DrinkState<EntityType, StateType>::onMessage(EntityType* entity, con
 
 		if (entity->canSocialize())
 		{
-			//entity->getAgentStateMachine()->getCurrentState()->stateChangeReason = AgentState::SOCIALIZE;
-			//entity->changeState(entity->getAgentStateMachine()->states.at(WALKING));
 			MessageDispatcher::instance()->dispatchMessage(0.0, entity->ID(), entity->ID(), Message::CAN_SOCIALIZE, 0.0);
 		}
 		else
 		{
-			std::cout << Timer::instance().getTimeString() << entity->getName() << ": Aww i can't come----------------------------------------------------------------------------------------------\n";
+			std::cout << Timer::instance().getTimeString() << entity->getName() << ": Aww i can't come\n";
 		}
 
 		return true;

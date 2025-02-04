@@ -84,27 +84,6 @@ inline void SleepingState<EntityType, StateType>::execute(EntityType* e)
 		e->changeState(e->getAgentStateMachine()->states.at(EATING));
 		return;
 	}
-	//std::cout << e->getFatigue() << std::endl;
-	//if (e->getFatigue() == 0 && e->getHunger() >= 50)
-	//{
-	//	this->stateChangeReason = EATING;
-	//	//std::cout << Timer::instance().getTimeString() << e->getName() << ": Wakes up " << std::endl; 
-	//	e->changeState(e->getAgentStateMachine()->states.at(EATING));
-	//}
-
-	//if (e->getFatigue() == 0 && e->getThirst() >= 50)
-	//{
-	//	this->stateChangeReason = DRINKING; 
-	//	//std::cout << Timer::instance().getTimeString() << e->getName() << ": Wakes up " << std::endl;
-	//	e->changeState(e->getAgentStateMachine()->states.at(DRINKING));
-	//}
-
-	//if (e->getSleepTimer() <= time)
-	//{
-	//	std::cout << Timer::instance().getTimeString() << e->getName() << ": Sleeping" << std::endl;
-	//	e->setSleepTimer(time + e->getSleepCD());
-	//	e->decreaseFatigue(20);
-	//}
 }
 
 template<typename EntityType, typename StateType>
@@ -150,13 +129,11 @@ inline bool SleepingState<EntityType, StateType>::onMessage(EntityType* entity, 
 
 		if (entity->canSocialize())
 		{
-			//entity->getAgentStateMachine()->getCurrentState()->stateChangeReason = AgentState::SOCIALIZE;
-			//entity->changeState(entity->getAgentStateMachine()->states.at(WALKING));
 			MessageDispatcher::instance()->dispatchMessage(0.0, entity->ID(), entity->ID(), Message::CAN_SOCIALIZE, 0.0);
 		}
 		else
 		{
-			std::cout << Timer::instance().getTimeString() << entity->getName() << ": Aww i can't come----------------------------------------------------------------------------------------------\n";
+			std::cout << Timer::instance().getTimeString() << entity->getName() << ": Aww i can't come\n";
 		}
 
 		return true;

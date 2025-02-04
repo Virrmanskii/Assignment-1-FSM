@@ -80,106 +80,6 @@ Work Agent::getWork()
 	return this->work;
 }
 
-void Agent::setWorkCD(int CD)
-{
-	this->workCD = CD;
-}
-
-int Agent::getWorkCD()
-{
-	return this->workCD;
-}
-
-void Agent::setWorkTimer(double newTimer)
-{
-	this->workTimer = newTimer;
-}
-
-double Agent::getWorkTimer()
-{
-	return this->workTimer;
-}
-
-void Agent::setWalkCD(int CD)
-{
-	this->walkCD = CD;
-}
-
-int Agent::getWalkCD()
-{
-	return this->walkCD;
-}
-
-void Agent::setWalkTimer(double newTimer)
-{
-	this->walkTimer = newTimer;
-}
-
-double Agent::getWalkTimer()
-{
-	return this->walkTimer;
-}
-
-void Agent::setSleepCD(int CD)
-{
-	this->sleepCD = CD;
-}
-
-int Agent::getSleepCD()
-{
-	return this->sleepCD;
-}
-
-void Agent::setSleepTimer(double newTimer)
-{
-	this->sleepTimer = newTimer;
-}
-
-double Agent::getSleepTimer()
-{
-	return this->sleepTimer;
-}
-
-void Agent::setEatCD(int CD)
-{
-	this->eatCD = CD;
-}
-
-int Agent::getEatCD()
-{
-	return this->eatCD;
-}
-
-void Agent::setEatTimer(double newTimer)
-{
-	this->eatTimer = newTimer;
-}
-
-double Agent::getEatTimer()
-{
-	return this->eatTimer;
-}
-
-void Agent::setDrinkCD(int CD)
-{
-	this->drinkCD = CD;
-}
-
-int Agent::getDrinkCD()
-{
-	return this->drinkCD;
-}
-
-void Agent::setDrinkTimer(double newTimer)
-{
-	this->drinkTimer = newTimer;
-}
-
-double Agent::getDrinkTimer()
-{
-	return this->drinkTimer;
-}
-
 int Agent::getJobResource()
 {
 	return this->jobResource;
@@ -365,11 +265,6 @@ bool Agent::canSocialize()
 //AgentStateMachine class defenitions
 //-------------------------------------------------------------------------------------------------------------------
 
-
-//AgentStateMachine::AgentStateMachine(Agent* owner)
-//{
-//	//this->setOwner(owner);
-//}
 
 void AgentStateMachine::setUp()
 {

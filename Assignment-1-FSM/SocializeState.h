@@ -53,7 +53,6 @@ inline void SocializeState<EntityType, StateType>::enter(EntityType* e)
 	default:
 		break;
 	}
-	std::cout << Timer::instance().getTimeString() << e->getName() << ": +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++" << std::endl;
 }
 
 template<typename EntityType, typename StateType>

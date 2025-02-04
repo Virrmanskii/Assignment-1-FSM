@@ -179,7 +179,7 @@ inline bool WorkState<EntityType, StateType>::onMessage(EntityType* entity, cons
 		}
 		else
 		{
-			std::cout << Timer::instance().getTimeString() << entity->getName() << ": Aww i can't come----------------------------------------------------------------------------------------------\n";
+			std::cout << Timer::instance().getTimeString() << entity->getName() << ": Aww i can't come\n";
 		}
 		
 		return true;

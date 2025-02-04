@@ -66,18 +66,8 @@ inline void WalkState<EntityType, StateType>::execute(EntityType* e)
 {
 	double time = Timer::instance().getTime();
 
-	//if (e->getFatigue() >= 50)
-	//{
-	//	this->stateChangeReason = SLEEPING;
-	//	e->changeState(e->getAgentStateMachine()->states.at(WALKING));
-	//}
-
-	if (e->getWalkTimer() <= time)
-	{
-		std::cout << Timer::instance().getTimeString() << e->getName() << ": Walking" << std::endl;
-		e->setWalkTimer(time + e->getWalkCD());
-		this->walktick += 1;
-	}
+	std::cout << Timer::instance().getTimeString() << e->getName() << ": Walking" << std::endl;
+	this->walktick += 1;
 
 	if (this->walktick == 3)
 	{
@@ -132,13 +122,11 @@ inline bool WalkState<EntityType, StateType>::onMessage(EntityType* entity, cons
 
 		if (entity->canSocialize())
 		{
-			//entity->getAgentStateMachine()->getCurrentState()->stateChangeReason = AgentState::SOCIALIZE;
-			//entity->changeState(entity->getAgentStateMachine()->states.at(WALKING));
 			MessageDispatcher::instance()->dispatchMessage(0.0, entity->ID(), entity->ID(), Message::CAN_SOCIALIZE, 0.0);
 		}
 		else
 		{
-			std::cout << Timer::instance().getTimeString() << entity->getName() << ": Aww i can't come----------------------------------------------------------------------------------------------\n";
+			std::cout << Timer::instance().getTimeString() << entity->getName() << ": Aww i can't come\n";
 		}
 
 		return true;

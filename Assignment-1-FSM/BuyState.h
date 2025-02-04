@@ -98,40 +98,6 @@ inline void BuyState<EntityType, StateType>::execute(EntityType* e)
 		this->stateChangeReason = WORKING;
 		e->changeState(e->getAgentStateMachine()->states.at(WALKING));
 	}
-
-
-
-
-	
-	//if (e->getMoney() > 10)
-	//{
-	//	if (e->getFood() <= 40 && e->getMoney() > 30)
-	//	{
-	//		e->setFood(1);
-	//		e->decreaseMoney(30);
-	//		std::cout << Timer::instance().getTimeString() << e->getName() << ": Buys food" << std::endl;
-	//	}
-	//	if (e->getFood() <= 40 && e->getMoney() > 10)
-	//	{
-	//		e->setWater(1);
-	//		e->decreaseMoney(10);
-	//		std::cout << Timer::instance().getTimeString() << e->getName() << ": Buys water" << std::endl;
-	//	}
-	//}
-	//
-	//if ((e->getHunger() < 70 || e->getThirst() < 60 || e->getFatigue() < 20) && e->getMoney() <= 10)
-	//{
-	//	std::cout << Timer::instance().getTimeString() << e->getName() << ": Is feeling great and is ready for work" << std::endl;
-	//	this->stateChangeReason = WORKING;
-	//	e->changeState(e->getAgentStateMachine()->states.at(WALKING));
-	//	return;
-	//}
-	//if ((e->getHunger() < 70 || e->getThirst() < 60 || e->getFatigue() < 20) && e->getMoney() <= 10)
-	//{
-	//	this->stateChangeReason = WORKING;
-	//	e->changeState(e->getAgentStateMachine()->states.at(WALKING));
-	//	std::cout << Timer::instance().getTimeString() << e->getName() << ": Is feeling great and is ready for work" << std::endl;
-	//}
 }
 
 template<typename EntityType, typename StateType>
@@ -149,8 +115,6 @@ inline bool BuyState<EntityType, StateType>::onMessage(EntityType* entity, const
 
 		if (entity->canSocialize())
 		{
-			//entity->getAgentStateMachine()->getCurrentState()->stateChangeReason = AgentState::SOCIALIZE;
-			//entity->changeState(entity->getAgentStateMachine()->states.at(WALKING));
 			MessageDispatcher::instance()->dispatchMessage(0.0, entity->ID(), entity->ID(), Message::CAN_SOCIALIZE, 0.0);
 		}
 		else

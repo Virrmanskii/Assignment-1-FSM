@@ -5,7 +5,6 @@
 #include "Telegram.h"
 #include "Time.h"
 #include "set"
-//#include "Agent.h"
 
 struct CompareTelegram
 {
@@ -41,7 +40,7 @@ private:
 
 public:
 	static MessageDispatcher* instance();
-	void dispatchMessage(double delay, int sender, int reciever, int msg, double td);//, void* extraInfo
+	void dispatchMessage(double delay, int sender, int reciever, int msg, double td);
 	void dispatchDelayedMessage();
 };
 
